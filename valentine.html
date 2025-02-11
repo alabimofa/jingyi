@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>情人节快乐</title>
+  <style>
+    /* 基础样式 */
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    /* 文字容器 */
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+      z-index: 1;
+    }
+
+    /* 主标题动画 */
+    h1 {
+      font-size: 4em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* 爱心样式 */
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: #ff4081;
+      animation: fall 10s linear infinite;
+    }
+
+    /* 新增图片容器样式 */
+    .love-image {
+      max-width: 60%;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      margin: 20px auto;
+      animation: float 3s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .love-image:hover {
+      transform: rotate(-2deg) scale(1.05);
+    }
+
+    /* 关键帧动画 */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes fall {
+      to {
+        top: 100vh;
+      }
+    }
+
+    @keyframes beat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5em;
+        margin: 0 15px;
+      }
+
+      .love-image {
+        max-width: 85%;
+        margin: 10px auto;
+      }
+
+      p {
+        font-size: 1.2em;
+      }
+
+      .heart {
+        font-size: 18px;
+      }
+    }
+
+    /* 防止点击延迟 */
+    * {
+      touch-action: manipulation;
+    }
+
+    /* 优化文字换行 */
+    h1,
+    p {
+      word-break: keep-all;
+      white-space: pre-wrap;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="content">
+    <h1>❤ 情人节快乐 ❤</h1>
+    <!-- 新增图片 -->
+    <img src="654475A5F64FEA98AE3DE25FE840C1F9.png" alt="我们的记忆" class="love-image">
+    <p>我们的故事，永远是最美的诗篇</p>
+  </div>
+
+  <script>
+    // 添加视口meta标签
+    const meta = document.createElement('meta');
+    meta.name = "viewport";
+    meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+    document.head.appendChild(meta);
+
+    // 优化触摸事件
+    let lastTouch = 0;
+    document.addEventListener('touchstart', (e) => {
+      const now = Date.now();
+      if (now - lastTouch < 500) return; // 防止双击缩放
+      lastTouch = now;
+
+      // 创建点击爱心（与PC端保持一致）
+      const clickHeart = document.createElement('div');
+      clickHeart.style.position = 'absolute';
+      clickHeart.style.left = e.clientX + 'px';
+      clickHeart.style.top = e.clientY + 'px';
+      clickHeart.style.color = `hsl(${Math.random() * 360}, 70%, 60%)`;
+      clickHeart.style.fontSize = '40px';
+      clickHeart.style.animation = 'beat 0.8s ease';
+      clickHeart.innerHTML = '❤';
+
+      document.body.appendChild(clickHeart);
+      setTimeout(() => clickHeart.remove(), 1000);
+    }, { passive: true });
+
+    // 创建爱心雨
+    function createHearts() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+      heart.style.opacity = Math.random();
+
+      document.body.appendChild(heart);
+
+      // 自动移除爱心
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    // 定时生成爱心
+    setInterval(createHearts, 300);
+  </script>
+</body>
+
+</html>
